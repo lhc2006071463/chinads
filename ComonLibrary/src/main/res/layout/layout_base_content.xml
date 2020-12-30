@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:id="@+id/rl_root"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.tiens.comonlibrary.widget.TitleBar
+            android:id="@+id/titleBar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_bar_dimen"/>
+        <RelativeLayout
+            android:id="@+id/rl_loading"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/ivProgress"
+                android:layout_width="@dimen/common_loading_width"
+                android:layout_height="@dimen/common_loading_width"
+                android:layout_centerInParent="true"
+                android:src="@drawable/common_loading"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>
