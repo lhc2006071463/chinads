@@ -1,0 +1,82 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'com.alibaba.arouter'
+}
+
+android {
+    def ext = rootProject.ext
+    compileSdkVersion ext.compileSdkVersion
+    buildToolsVersion ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion ext.minSdkVersion
+        targetSdkVersion ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["moduleName": project.getName()]
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    def ext = rootProject.ext
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation "com.android.support:support-annotations:28.0.0"
+    annotationProcessor 'com.android.support:support-annotations:28.0.0'
+
+    api "androidx.constraintlayout:constraintlayout:${ext.constraintLayout_version}"
+    api "androidx.recyclerview:recyclerview:${ext.recyclerviewVersion}"
+    api "com.google.android.material:material:${ext.material_version}"
+    api "com.squareup.retrofit2:retrofit:${ext.retrofit_version}"
+    api "io.reactivex:rxandroid:${ext.rxandroidVersion}"
+    api "com.squareup.retrofit2:converter-gson:${ext.retrofit2_convert_version}"
+
+    api "com.alibaba:arouter-api:${ext.aroute_api_version}"
+    annotationProcessor "com.alibaba:arouter-compiler:${ext.arouter_compiler_version}"
+
+    api "com.github.bumptech.glide:glide:${ext.glide_version}"
+    annotationProcessor "com.github.bumptech.glide:compiler:${ext.glide_version}"
+    implementation "com.github.bumptech.glide:okhttp3-integration:4.3.1"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:${ext.viewmodel_ktx_version}"
+    api "androidx.lifecycle:lifecycle-livedata-ktx:${ext.livedata_ktx_version}"
+    api "com.tencent:mmkv:${ext.mmkv_version}"
+
+}
