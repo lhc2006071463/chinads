@@ -2,4 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tiens.chinads.owner">
 
+    <application>
+        <activity android:name=".ui.OwnerActivity" />
+    </application>
 </manifest>

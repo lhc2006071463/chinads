@@ -7,9 +7,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.tiens.chinads.databinding.ActivityMainBinding
 import com.tiens.chinads.owner.OwnerDataProvider
 import com.tiens.comonlibrary.base.ui.BaseVMActivity
-import com.tiens.comonlibrary.dataprovider.IOwnerDataProvider
-import com.tiens.comonlibrary.route.RouterPaths
-import com.tiens.comonlibrary.util.ALog
+import com.tiens.chinads.res.route.RouterPaths
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseVMActivity<ActivityMainBinding,MainVM>() {
@@ -26,7 +24,7 @@ class MainActivity : BaseVMActivity<ActivityMainBinding,MainVM>() {
     }
 
     override fun initData() {
-        val ownerDataProvider = ARouter.getInstance().build(RouterPaths.OWNER_DATA_PROVIDER).navigation() as OwnerDataProvider
+        val ownerDataProvider = ARouter.getInstance().build(RouterPaths.Owner.OWNER_DATA_PROVIDER).navigation() as OwnerDataProvider
         ownerDataProvider.getOwnerData()
         addObservers()
     }
@@ -41,6 +39,7 @@ class MainActivity : BaseVMActivity<ActivityMainBinding,MainVM>() {
     private fun addObservers() {
         mVM.datas.observe(this, Observer {
             toast(it[0].sid)
+            ARouter.getInstance().build(RouterPaths.Owner.OWNER_ACTIVITY).navigation()
         })
     }
 }

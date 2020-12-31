@@ -40,6 +40,10 @@ android {
         jvmTarget = '1.8'
     }
 
+    dataBinding {
+        enabled = true
+    }
+
     sourceSets {
         main {
             if(isOwnerRunAlone.toBoolean()) {
@@ -61,7 +65,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation project(path:':ComonLibrary')
+    implementation project(path:':res')
 
     kapt "com.alibaba:arouter-compiler:${ext.arouter_compiler_version}"
 }
