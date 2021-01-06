@@ -21,7 +21,7 @@ import com.tiens.comonlibrary.util.vm.getVmClazz
 abstract class BaseVMFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragment() {
     var mRootView: ViewGroup? = null
     var mContext: BaseVMActivity<*,*>? = null
-    private lateinit var mBinding: VB
+    lateinit var mBinding: VB
     lateinit var mVM: VM
     override fun onAttach(context: Context) {
         super.onAttach(context)

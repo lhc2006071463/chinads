@@ -20,7 +20,7 @@ class MainActivity : BaseVMActivity<ActivityMainBinding,MainVM>() {
     }
 
     override fun initView() {
-
+        supportFragmentManager.beginTransaction().add(R.id.fl_container,TestFragment(),"TestFragment").commitAllowingStateLoss()
     }
 
     override fun initData() {

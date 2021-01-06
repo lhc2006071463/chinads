@@ -183,17 +183,17 @@ abstract class BaseVMActivity<VB : ViewDataBinding, VM : BaseViewModel> : Fragme
 
     fun showFragment(
         containerId: Int,
-        fragment: Fragment?
+        fragment: Fragment
     ) {
         val fragments =
             supportFragmentManager.fragments
         for (item in fragments) {
             supportFragmentManager.beginTransaction().hide(item!!).commit()
         }
-        if (fragment != null && fragment.isAdded) {
+        if (fragment.isAdded) {
             supportFragmentManager.beginTransaction().show(fragment).commit()
         } else {
-            supportFragmentManager.beginTransaction().add(containerId, fragment!!).commit()
+            supportFragmentManager.beginTransaction().add(containerId, fragment).commit()
         }
     }
 
