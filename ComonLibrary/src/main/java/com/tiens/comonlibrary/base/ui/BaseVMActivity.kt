@@ -33,7 +33,7 @@ abstract class BaseVMActivity<VB : ViewDataBinding, VM : BaseViewModel> : Fragme
     var mContext: Activity? = null
     lateinit var binding: VB
     lateinit var mVM: VM
-    private var mResumed: Boolean? = false
+    var mResumed: Boolean? = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mContext = this
@@ -122,7 +122,11 @@ abstract class BaseVMActivity<VB : ViewDataBinding, VM : BaseViewModel> : Fragme
         mVM.isShowLoading.observe(this, Observer<Boolean> {
             showLoading(it)
         })
+
+        addCommonObservers()
     }
+
+    open fun addCommonObservers() {}
 
     open fun onRequestFail(e: ApiException) {
         if(!NetworkUtil.isNetAvailable(mContext)) {

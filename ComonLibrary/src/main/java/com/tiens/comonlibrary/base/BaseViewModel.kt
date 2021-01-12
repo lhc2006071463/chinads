@@ -4,7 +4,7 @@ import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tiens.comonlibrary.cache.CacheControlUtil
+import com.tiens.comonlibrary.cache.CacheControlManager
 import com.tiens.comonlibrary.request.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
 import retrofit2.Response
 
-open class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
 
     private val httpUtil by lazy { RetrofitClient.getInstance() }
 
@@ -54,7 +54,8 @@ open class BaseViewModel : ViewModel() {
             } catch (e: Throwable) {//接口请求失败
                 showError(ApiException(ApiException.API_ERROR,e.message))
             } finally {//请求结束
-                dismissLoading()
+                if(isShowLoading)
+                    dismissLoading()
             }
         }
     }
@@ -78,8 +79,8 @@ open class BaseViewModel : ViewModel() {
                     val response = api()
                     withContext(Dispatchers.Main) {
                         val responseContent = response.body()?.string()
-                        if (!TextUtils.isEmpty(responseContent) && CacheControlUtil.shouldCacheData(url)) {
-                            CacheControlUtil.cacheResponse(url, params, responseContent)
+                        if (!TextUtils.isEmpty(responseContent) && CacheControlManager.shouldCacheData(url)) {
+                            CacheControlManager.cacheResponse(url, params, responseContent)
                         }
                         ResponseTransfer(responseListener).transfer(Response.success(ResponseBody.create(response.body()?.contentType(), responseContent)))
                     }
@@ -88,9 +89,12 @@ open class BaseViewModel : ViewModel() {
                 showError(ApiException(ApiException.API_ERROR,e.message))
             } finally {//请求结束
                 dismissLoading()
+                requestFinish()
             }
         }
     }
+
+    open fun requestFinish() {}
 
 
     fun get(url: String, loading: Boolean, listener: NetworkResponseListener) {
@@ -101,8 +105,8 @@ open class BaseViewModel : ViewModel() {
         request({httpUtil.create().get(url,params)}, loading, listener)
     }
 
-    private  fun getCacheData(url: String, params: Map<String,Any>): Response<ResponseBody> {
-        val cacheResponse = CacheControlUtil.getCacheData(url,params)
+    private fun getCacheData(url: String, params: Map<String,Any>): Response<ResponseBody> {
+        val cacheResponse = CacheControlManager.getCacheData(url,params)
         if(!cacheResponse.isNullOrEmpty()) {
             return Response.success(ResponseBody.create(null, cacheResponse))
         }
@@ -110,7 +114,7 @@ open class BaseViewModel : ViewModel() {
     }
 
     fun get(url: String, params: Map<String, Any>, dataEnum: DataEnum, loading: Boolean, listener: NetworkResponseListener) {
-        val cacheResponse = CacheControlUtil.getCacheData(url,params)
+        val cacheResponse = CacheControlManager.getCacheData(url,params)
         if(dataEnum==DataEnum.NET_ONLY) {
             get(url,params,loading,listener)
         } else if(dataEnum==DataEnum.CACHE_ONLY) {

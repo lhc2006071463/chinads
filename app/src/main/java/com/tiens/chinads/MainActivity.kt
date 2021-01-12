@@ -30,7 +30,7 @@ class MainActivity : BaseVMActivity<ActivityMainBinding,MainVM>() {
     }
 
     override fun initListeners() {
-        tv_click.setOnClickListener {
+        binding.tvClick.setOnClickListener {
             Log.d("Tag","onClick")
             mVM.getData()
         }

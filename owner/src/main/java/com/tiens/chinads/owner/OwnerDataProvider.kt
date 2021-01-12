@@ -8,7 +8,7 @@ import com.tiens.chinads.res.route.RouterPaths
 @Route(path = RouterPaths.Owner.OWNER_DATA_PROVIDER)
 class OwnerDataProvider: IOwnerDataProvider {
     override fun getOwnerData(): String {
-        return "";
+        return "123";
     }
 
     override fun init(context: Context?) {

@@ -84,7 +84,7 @@ abstract class BaseVMFragment<VB : ViewDataBinding, VM : BaseViewModel> : Fragme
      */
     abstract fun initData()
 
-    private fun onRequestFail(e: ApiException) {
+    open fun onRequestFail(e: ApiException) {
         if(!NetworkUtil.isNetAvailable(mContext)) {
             toastCenter("网络不可用")
         }else {

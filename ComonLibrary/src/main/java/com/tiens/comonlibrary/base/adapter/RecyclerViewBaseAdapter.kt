@@ -9,7 +9,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.tiens.comonlibrary.base.adapter.RecyclerViewBaseAdapter.MyViewHolder
 
-class RecyclerViewBaseAdapter<T> : RecyclerView.Adapter<MyViewHolder> {
+abstract class RecyclerViewBaseAdapter<T> : RecyclerView.Adapter<MyViewHolder> {
     var layoutId: Int
     private var variable = 0
     var context: Context? = null
@@ -17,20 +17,16 @@ class RecyclerViewBaseAdapter<T> : RecyclerView.Adapter<MyViewHolder> {
     var listener: OnItemClickListener<T>? = null
     var recyclerView: RecyclerView? = null
 
-    constructor(layoutId: Int, variable: Int, datas: MutableList<T>?) {
+    constructor(layoutId: Int, variable: Int, dataList: MutableList<T>?) {
         this.layoutId = layoutId
         this.variable = variable
-        this.datas = datas
+        this.datas = dataList
     }
 
-    constructor(
-        layoutId: Int,
-        context: Context?,
-        datas: MutableList<T>?
-    ) {
+    constructor(layoutId: Int, context: Context?, dataList: MutableList<T>?) {
         this.layoutId = layoutId
         this.context = context
-        this.datas = datas
+        this.datas = dataList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
