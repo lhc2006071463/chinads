@@ -66,7 +66,7 @@ abstract class BaseVMActivity<VB : ViewDataBinding, VM : BaseViewModel> : Fragme
 
     }
 
-    private fun setData() {
+    open fun setData() {
         initView()
         initListeners()
         initData()

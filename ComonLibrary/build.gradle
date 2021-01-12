@@ -78,5 +78,7 @@ dependencies {
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:${ext.viewmodel_ktx_version}"
     api "androidx.lifecycle:lifecycle-livedata-ktx:${ext.livedata_ktx_version}"
     api "com.tencent:mmkv:${ext.mmkv_version}"
+    api  'com.scwang.smart:refresh-layout-kernel:2.0.3'//核心必须依赖
+    api  'com.scwang.smart:refresh-header-classics:2.0.3'
 
 }
