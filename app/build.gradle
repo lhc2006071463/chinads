@@ -61,5 +61,4 @@ dependencies {
     implementation project(path:':owner')
 
     kapt "com.alibaba:arouter-compiler:${ext.arouter_compiler_version}"
-    implementation "org.aspectj:aspectjrt:1.9.5"
 }

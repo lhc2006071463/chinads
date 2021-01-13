@@ -10,8 +10,6 @@ import androidx.fragment.app.Fragment;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.tiens.chinads.commonaop.annotation.LoginTrace;
-import com.tiens.comonlibrary.api.ApiManager;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
