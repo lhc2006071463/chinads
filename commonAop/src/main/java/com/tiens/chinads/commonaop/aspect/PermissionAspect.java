@@ -37,6 +37,7 @@ public class PermissionAspect {
 
     @Around("method() && @annotation(permission)")
     public void aroundJoinPoint(final ProceedingJoinPoint joinPoint, PermissionTrace permission) throws Throwable {
+        String pageName = permission.pageName();
         PermissionUtils.permission(permission.value())
                 .callback(new PermissionUtils.FullCallback() {
                     @Override
@@ -53,7 +54,7 @@ public class PermissionAspect {
                     public void onDenied(List<String> permissionsDeniedForever, List<String> permissionsDenied) {
                         Log.e(TAG,"权限申请被拒绝:" + Utils.listToString(permissionsDenied));
                         if (AOP.getOnPermissionDeniedListener() != null) {
-                            AOP.getOnPermissionDeniedListener().onDenied(permissionsDenied);
+                            AOP.getOnPermissionDeniedListener().onDenied(permissionsDenied,pageName);
                         }
                     }
                 })
