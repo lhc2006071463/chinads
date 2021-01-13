@@ -8,6 +8,7 @@ import android.webkit.WebView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.tencent.mmkv.MMKV;
+import com.tiens.chinads.commonaop.AOP;
 import com.tiens.comonlibrary.BuildConfig;
 import com.tiens.comonlibrary.util.ALog;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public abstract class BaseApplication extends Application implements IBaseApplic
         initApps();
         initARoute();
         initMMKV();
+        AOP.init(this);
         initWebView();
         mAppExecutors = new AppExecutors();
     }

@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
+    id 'android-aspectjx'
 }
 
 android {
@@ -60,4 +61,5 @@ dependencies {
     implementation project(path:':owner')
 
     kapt "com.alibaba:arouter-compiler:${ext.arouter_compiler_version}"
+    implementation "org.aspectj:aspectjrt:1.9.5"
 }

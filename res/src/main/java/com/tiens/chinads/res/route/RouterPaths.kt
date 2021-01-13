@@ -8,4 +8,10 @@ interface RouterPaths {
             const val OWNER_ACTIVITY = "/Owner/OwnerActivity"
         }
     }
+
+    interface Main{
+        companion object {
+            const val MAIN_ACTIVITY = "/Main/MainActivity"
+        }
+    }
 }
