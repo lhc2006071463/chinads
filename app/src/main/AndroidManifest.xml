@@ -32,12 +32,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChinaDS">
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <data android:scheme="scheme" android:host="app" android:path="/MainPage" />
-                <category android:name="android.intent.category.DEFAULT"/>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-            </intent-filter>
+
         </activity>
         <activity android:name=".RefreshActivity">
             <intent-filter>

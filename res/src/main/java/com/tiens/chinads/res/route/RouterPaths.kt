@@ -12,6 +12,7 @@ interface RouterPaths {
     interface Main{
         companion object {
             const val MAIN_ACTIVITY = "/Main/MainActivity"
+            const val APP_DATA_PROVIDER = "/Main/AppDataProvider"
         }
     }
 }

@@ -11,7 +11,7 @@ import com.tiens.comonlibrary.base.adapter.RecyclerViewBaseAdapter.MyViewHolder
 
 abstract class RecyclerViewBaseAdapter<T> : RecyclerView.Adapter<MyViewHolder> {
     var layoutId: Int
-    private var variable = 0
+    var variable = 0
     var context: Context? = null
     var datas: MutableList<T>? = null
     var listener: OnItemClickListener<T>? = null

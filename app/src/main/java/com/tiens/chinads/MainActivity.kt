@@ -1,6 +1,8 @@
 package com.tiens.chinads
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -41,6 +43,8 @@ class MainActivity : BaseVMActivity<ActivityMainBinding,MainVM>() {
     private fun addObservers() {
         mVM.datas.observe(this, Observer {
             toast(it[0].sid)
+            val appDataProvider = ARouter.getInstance().build(RouterPaths.Main.APP_DATA_PROVIDER).navigation() as AppDataProvider
+            appDataProvider.content = it[0].toString()
             ARouter.getInstance().build(RouterPaths.Owner.OWNER_ACTIVITY).navigation()
         })
     }

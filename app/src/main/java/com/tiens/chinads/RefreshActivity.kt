@@ -20,16 +20,17 @@ class RefreshActivity : BaseRefreshVMActivity<ActivityRefreshBinding,RefreshVM>(
     }
 
     override fun initListeners() {
-        binding.tvClick.setOnClickListener @FastClickTrace{
-            getData()
+        binding.tvClick.setOnClickListener{
+            getData(it)
         }
         mRefreshLayout.setOnRefreshListener {
             mVM.getData()
         }
     }
 
-    @PermissionTrace(value = [PermissionGroup.CAMERA,PermissionGroup.STORAGE], pageName = "RefreshActivity")
-    private fun getData() {
+    @FastClickTrace
+//    @PermissionTrace(value = [PermissionGroup.CAMERA,PermissionGroup.STORAGE], pageName = "RefreshActivity")
+    private fun getData(it: View) {
         mVM.getData()
     }
 
