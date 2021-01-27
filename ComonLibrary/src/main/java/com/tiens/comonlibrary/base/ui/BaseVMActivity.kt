@@ -1,6 +1,7 @@
 package com.tiens.comonlibrary.base.ui
 
 import android.app.Activity
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.tiens.comonlibrary.R
 import com.tiens.comonlibrary.base.BaseViewModel
 import com.tiens.comonlibrary.databinding.LayoutBaseContentBinding
+import com.tiens.comonlibrary.network.NetworkLiveData
 import com.tiens.comonlibrary.request.ApiException
 import com.tiens.comonlibrary.util.*
 import com.tiens.comonlibrary.util.glide.ImageUtils
@@ -88,6 +90,15 @@ abstract class BaseVMActivity<VB : ViewDataBinding, VM : BaseViewModel> : Fragme
             StatusBarUtil.transparencyBar(mContext)
             StatusBarUtil.setLightStatusBar(mContext, true)
         }
+        addNetworkObserver()
+    }
+
+    private fun addNetworkObserver() {
+        NetworkLiveData.getInstance(this)?.observe(this, Observer{
+            if(!NetworkUtil.isNetAvailable(mContext)) {
+                toastCenter("网络不可用!")
+            }
+        })
     }
 
     /**

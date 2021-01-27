@@ -46,6 +46,14 @@ android {
     }
 }
 
+//aspectjx {
+//    exclude 'com.google','com.taobao','com.alibaba','module-info','com.squareup.haha','versions.9','com.tencent','android.support',
+//            'androidx', 'com.squareup', 'com.alipay', 'org.apache', 'com.alipay', 'com.facebook', 'cn.jiguang', 'com.github',
+//            'com.meizu', 'com.huawei', 'com.qiyukf', 'com.sina', 'io.reactivex', 'de.greenrobot.event', 'com.netease.neliveplayer',
+//            'com.umeng', 'im.yixin', 'com.commonsware', 'io.fabric', 'rx.android', 'com.android'
+//    include 'com.tiens.chinads'
+//}
+
 dependencies {
     def ext = rootProject.ext
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

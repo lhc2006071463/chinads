@@ -3,6 +3,7 @@ package com.tiens.chinads.owner.ui
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.tiens.chinads.commonaop.annotation.LoginTrace
 import com.tiens.chinads.owner.R
 import com.tiens.chinads.owner.databinding.OwnerActivityOwnerBinding
 import com.tiens.comonlibrary.base.EmptyVM
@@ -30,5 +31,13 @@ class OwnerActivity : BaseVMActivity<OwnerActivityOwnerBinding,EmptyVM>() {
     }
 
     override fun initListeners() {
+        binding.tvClick.setOnClickListener {
+            getData()
+        }
+    }
+
+    @LoginTrace
+    private fun getData() {
+
     }
 }
