@@ -6,16 +6,19 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.webkit.WebView;
 
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.tencent.mmkv.MMKV;
-import com.tiens.chinads.commonaop.AOP;
+//import com.tiens.chinads.commonaop.AOP;
 import com.tiens.comonlibrary.BuildConfig;
 import com.tiens.comonlibrary.util.ALog;
 import java.util.ArrayList;
 import com.tiens.comonlibrary.util.AppExecutors;
 import com.tiens.comonlibrary.util.AppUtils;
 
-public abstract class BaseApplication extends Application implements IBaseApplication {
+public abstract class BaseApplication extends MultiDexApplication implements IBaseApplication {
     private static final String PROCESS_NAME = "com.tiens.ChinaDs";
     private static BaseApplication baseContext;
     private AppExecutors mAppExecutors;
@@ -28,9 +31,15 @@ public abstract class BaseApplication extends Application implements IBaseApplic
         initApps();
         initARoute();
         initMMKV();
-        AOP.init(this);
+//        AOP.init(this);
         initWebView();
         mAppExecutors = new AppExecutors();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(base);
     }
 
     private void initApps() {

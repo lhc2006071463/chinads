@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'maven'
 }
 
 android {
@@ -49,6 +50,30 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    api project(path:':ComonLibrary')
+//    api project(path:':ComonLibrary')
+    implementation "com.tiens.commonlibrary:lib_common:1.0.2"
     kapt "com.alibaba:arouter-compiler:${ext.arouter_compiler_version}"
+}
+
+def MAVEN_LOCAL_PATH = 'http://localhost:8081/repository/maven-releases/'
+def ARTIFACT_ID = 'lib_res'
+def VERSION_NAME = '1.0.0'
+def GROUP_ID = 'com.tiens.chinads.res'
+def ACCOUNT = 'admin'
+def PASSWORD = 'af267b87-d3eb-4416-a753-d4b5f10e012f'
+
+//将Lib打成aar包上传至maven私有库
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url:MAVEN_LOCAL_PATH ){
+                authentication(userName: ACCOUNT, password: PASSWORD)}
+            pom.project {
+                groupId GROUP_ID
+                artifactId ARTIFACT_ID
+                version VERSION_NAME
+                packaging 'aar'
+            }
+        }
+    }
 }

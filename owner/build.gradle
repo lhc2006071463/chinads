@@ -5,6 +5,7 @@ if(isOwnerRunAlone.toBoolean()) {
 }
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'maven'
 
 android {
     compileSdkVersion 30
@@ -65,7 +66,31 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation project(path:':res')
-
+//    implementation project(path:':res')
+    implementation "com.tiens.commonlibrary:lib_common:1.0.2"
+    implementation "com.tiens.chinads.res:lib_res:1.0.0"
     kapt "com.alibaba:arouter-compiler:${ext.arouter_compiler_version}"
+}
+
+def MAVEN_LOCAL_PATH = 'http://localhost:8081/repository/maven-releases/'
+def ARTIFACT_ID = 'lib_owner'
+def VERSION_NAME = '1.0.0'
+def GROUP_ID = 'com.tiens.chinads.owner'
+def ACCOUNT = 'admin'
+def PASSWORD = 'af267b87-d3eb-4416-a753-d4b5f10e012f'
+
+//将Lib打成aar包上传至maven私有库
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url:MAVEN_LOCAL_PATH ){
+                authentication(userName: ACCOUNT, password: PASSWORD)}
+            pom.project {
+                groupId GROUP_ID
+                artifactId ARTIFACT_ID
+                version VERSION_NAME
+                packaging 'aar'
+            }
+        }
+    }
 }

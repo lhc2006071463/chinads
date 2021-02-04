@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'com.alibaba.arouter'
+    id 'maven'
 }
 
 android {
@@ -61,7 +62,7 @@ dependencies {
 
     implementation "com.android.support:support-annotations:28.0.0"
     annotationProcessor 'com.android.support:support-annotations:28.0.0'
-    api project(path:':commonAop')
+//    api project(path:':commonAop')
     api "androidx.constraintlayout:constraintlayout:${ext.constraintLayout_version}"
     api "androidx.recyclerview:recyclerview:${ext.recyclerviewVersion}"
     api "com.google.android.material:material:${ext.material_version}"
@@ -81,5 +82,29 @@ dependencies {
     api "com.tencent:mmkv:${ext.mmkv_version}"
     api  'com.scwang.smart:refresh-layout-kernel:2.0.3'//核心必须依赖
     api  'com.scwang.smart:refresh-header-classics:2.0.3'
+    api 'com.android.support:multidex:1.0.3'
 
+}
+
+def MAVEN_LOCAL_PATH = 'http://localhost:8081/repository/maven-releases/'
+def ARTIFACT_ID = 'lib_common'
+def VERSION_NAME = '1.0.2'
+def GROUP_ID = 'com.tiens.commonlibrary'
+def ACCOUNT = 'admin'
+def PASSWORD = 'af267b87-d3eb-4416-a753-d4b5f10e012f'
+
+//将Lib打成aar包上传至maven私有库
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url:MAVEN_LOCAL_PATH ){
+                authentication(userName: ACCOUNT, password: PASSWORD)}
+            pom.project {
+                groupId GROUP_ID
+                artifactId ARTIFACT_ID
+                version VERSION_NAME
+                packaging 'aar'
+            }
+        }
+    }
 }
