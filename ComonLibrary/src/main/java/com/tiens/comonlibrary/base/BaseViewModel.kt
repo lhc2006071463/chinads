@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
 import retrofit2.Response
-
 abstract class BaseViewModel : ViewModel() {
 
     private val httpUtil by lazy { RetrofitClient.getInstance() }
@@ -99,6 +98,10 @@ abstract class BaseViewModel : ViewModel() {
 
     fun get(url: String, loading: Boolean, listener: NetworkResponseListener) {
         request({httpUtil.create().get(url)},loading, listener)
+    }
+
+    suspend fun get(url: String) : Response<ResponseBody>{
+        return httpUtil.create().get(url)
     }
 
     fun get(url: String, params: Map<String,Any>, loading: Boolean, listener: NetworkResponseListener) {
