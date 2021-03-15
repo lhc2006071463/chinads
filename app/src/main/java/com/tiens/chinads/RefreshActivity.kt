@@ -13,6 +13,7 @@ import com.tiens.comonlibrary.base.ui.BaseRefreshVMActivity
 import com.tiens.comonlibrary.request.HttpResult
 import com.tiens.comonlibrary.util.ALog
 import com.tiens.comonlibrary.util.GsonUtil
+import com.tiens.comonlibrary.util.ToastUtils
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 
@@ -51,7 +52,9 @@ class RefreshActivity : BaseRefreshVMActivity<ActivityRefreshBinding,RefreshVM>(
     }
 
     override fun initData() {
-
+        val content = "失效商品,\n失效商品1\n失效商品2"
+        val result = content.replace("\n", System.getProperty("line.separator"))
+        ToastUtils.showToastCenter(result,5000)
     }
 
     override fun initView() {
