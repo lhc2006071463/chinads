@@ -50,8 +50,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-//    api project(path:':ComonLibrary')
-    implementation "com.tiens.commonlibrary:lib_common:1.0.2"
+    api project(path:':ComonLibrary')
+//    implementation "com.tiens.commonlibrary:lib_common:1.0.2"
     kapt "com.alibaba:arouter-compiler:${ext.arouter_compiler_version}"
 }
 

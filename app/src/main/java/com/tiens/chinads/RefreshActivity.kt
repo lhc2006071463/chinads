@@ -36,15 +36,15 @@ class RefreshActivity : BaseRefreshVMActivity<ActivityRefreshBinding,RefreshVM>(
 
     private fun getData(it: View) {
         ARouter.getInstance().build(RouterPaths.Owner.OWNER_ACTIVITY).navigation()
-        lifecycleScope.launch {
-            val response = mVM.get(ApiManager.Main.GET_DATA)
-            val jsonObject = JSONObject(response.body()?.string())
-            val result = jsonObject.opt("result")
-            val resultBean = GsonUtil.json2Bean<HttpResult<*>>(response.body()?.string(), object : TypeToken<HttpResult<*>?>() {}.type)
-            val dataBean = GsonUtil.parseJsonToList<DataBean>(result.toString())
-            Log.d("Test",dataBean.toString())
-            ALog.d(dataBean.toString())
-        }
+//        lifecycleScope.launch {
+//            val response = mVM.get(ApiManager.Main.GET_DATA)
+//            val jsonObject = JSONObject(response.body()?.string())
+//            val result = jsonObject.opt("result")
+//            val resultBean = GsonUtil.json2Bean<HttpResult<*>>(response.body()?.string(), object : TypeToken<HttpResult<*>?>() {}.type)
+//            val dataBean = GsonUtil.parseJsonToList<DataBean>(result.toString())
+//            Log.d("Test",dataBean.toString())
+//            ALog.d(dataBean.toString())
+//        }
     }
 
     override fun initRefreshLayout() {

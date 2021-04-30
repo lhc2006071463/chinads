@@ -66,11 +66,11 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-//    implementation project(path:':res')
-//    implementation project(path:':owner')
-    implementation "com.tiens.commonlibrary:lib_common:1.0.2"
-    implementation "com.tiens.chinads.res:lib_res:1.0.0"
-    implementation "com.tiens.chinads.owner:lib_owner:1.0.0"
+    implementation project(path:':res')
+    implementation project(path:':owner')
+//    implementation "com.tiens.commonlibrary:lib_common:1.0.2"
+//    implementation "com.tiens.chinads.res:lib_res:1.0.0"
+//    implementation "com.tiens.chinads.owner:lib_owner:1.0.0"
 
     kapt "com.alibaba:arouter-compiler:${ext.arouter_compiler_version}"
 }

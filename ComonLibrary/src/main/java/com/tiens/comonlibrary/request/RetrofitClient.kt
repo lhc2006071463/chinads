@@ -1,5 +1,6 @@
 package com.tiens.comonlibrary.request
 
+import android.util.Log
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -27,6 +28,7 @@ class RetrofitClient {
     }
 
     private fun getOkHttpClient(): OkHttpClient {
+        Log.d("Tag","getOkHttpClient----")
         return OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
