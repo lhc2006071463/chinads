@@ -41,7 +41,7 @@ interface ApiService {
     @GET
     suspend fun get(
         @Url url: String,
-        @QueryMap maps: Map<String, Any>
+        @QueryMap maps: Map<String, @JvmSuppressWildcards Any>
     ): Response<ResponseBody>
 
     //DELETE请求

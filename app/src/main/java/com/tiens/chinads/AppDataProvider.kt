@@ -1,4 +1,4 @@
-package com.tiens.chinads
+ppackage com.tiens.chinads
 
 import android.app.Application
 import android.content.Context
@@ -25,7 +25,10 @@ class AppDataProvider : IAppDataProvider {
     private var context: Context? = null
     var content: String = ""
     override suspend fun getAppData(): Response<ResponseBody> {
-        return RetrofitClient.getInstance().create().get(ApiManager.Main.GET_DATA)
+        return RetrofitClient.getInstance().create().get("http://192.168.31.250:8001/eduservice/teacher/pageTeacher", mutableMapOf<String,Any>().apply {
+            put("current",1)
+            put("pageSize",10)
+        })
     }
 
     override fun init(context: Context?) {
