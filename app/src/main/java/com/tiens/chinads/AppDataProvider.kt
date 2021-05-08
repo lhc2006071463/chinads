@@ -1,6 +1,4 @@
-ppackage com.tiens.chinads
-
-import android.app.Application
+package com.tiens.chinads
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
