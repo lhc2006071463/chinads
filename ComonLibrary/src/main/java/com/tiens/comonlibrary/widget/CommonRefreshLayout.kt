@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 
 open class CommonRefreshLayout : SmartRefreshLayout {
+    var hasMoreData: Boolean = true
     constructor(mContext: Context) : super(mContext) {}
 
     constructor(mContext: Context, mAttributeSet: AttributeSet) : super(mContext, mAttributeSet) {}

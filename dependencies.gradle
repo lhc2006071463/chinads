@@ -52,6 +52,6 @@ ext {
     butterknifeVersion = '10.2.0'
     butterknife_compiler = '10.2.0'
 
-    viewmodel_ktx_version = '2.2.0'
-    livedata_ktx_version = '2.2.0'
+    viewmodel_ktx_version = '2.3.1'
+    livedata_ktx_version = '2.3.1'
 }

@@ -7,14 +7,7 @@ import org.json.JSONException
 import org.json.JSONObject
 
 object CacheControlManager {
-    private val APIS = arrayOf(ApiManager.Main.GET_DATA)
     private var mCache: ICache? = null
-    fun shouldCacheData(url: String): Boolean {
-        for (item in APIS) {
-            if (url.contains(item)) return true
-        }
-        return false
-    }
 
     private fun getCacheTime(url: String): Int {
         if (TextUtils.isEmpty(url)) return 0

@@ -1,15 +1,13 @@
 package com.tiens.comonlibrary.base
 
 import android.text.TextUtils
+import androidx.annotation.Nullable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tiens.comonlibrary.cache.CacheControlManager
 import com.tiens.comonlibrary.request.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import okhttp3.ResponseBody
 import retrofit2.Response
 abstract class BaseViewModel : ViewModel() {
@@ -44,12 +42,8 @@ abstract class BaseViewModel : ViewModel() {
         if (isShowLoading) showLoading()
         viewModelScope.launch {
             try {
-                withContext(Dispatchers.IO) {//异步请求接口
-                    val response = api()
-                    withContext(Dispatchers.Main) {
-                        ResponseTransfer(responseListener).transfer(response)
-                    }
-                }
+                val response = api()
+                ResponseTransfer(responseListener).transfer(response)
             } catch (e: Throwable) {//接口请求失败
                 showError(ApiException(ApiException.API_ERROR,e.message))
             } finally {//请求结束
@@ -78,7 +72,7 @@ abstract class BaseViewModel : ViewModel() {
                     val response = api()
                     withContext(Dispatchers.Main) {
                         val responseContent = response.body()?.string()
-                        if (!TextUtils.isEmpty(responseContent) && CacheControlManager.shouldCacheData(url)) {
+                        if (!TextUtils.isEmpty(responseContent)) {
                             CacheControlManager.cacheResponse(url, params, responseContent)
                         }
                         ResponseTransfer(responseListener).transfer(Response.success(ResponseBody.create(response.body()?.contentType(), responseContent)))
@@ -96,13 +90,9 @@ abstract class BaseViewModel : ViewModel() {
     open fun requestFinish() {}
 
 
-    fun get(url: String, loading: Boolean, listener: NetworkResponseListener) {
-        request({httpUtil.create().get(url)},loading, listener)
-    }
+//    fun get(url: String, loading: Boolean, listener: NetworkResponseListener) = request({httpUtil.create().get(url)},loading, listener)
 
-    suspend fun get(url: String) : Response<ResponseBody>{
-        return httpUtil.create().get(url)
-    }
+    suspend fun get(url: String) : Response<ResponseBody> = httpUtil.create().get(url)
 
     fun get(url: String, params: Map<String,Any>, loading: Boolean, listener: NetworkResponseListener) {
         request({httpUtil.create().get(url,params)}, loading, listener)

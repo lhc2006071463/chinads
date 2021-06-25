@@ -18,6 +18,7 @@ buildscript {
         classpath "com.alibaba:arouter-register:1.0.2"
         classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.10'
         classpath 'com.novoda:bintray-release:0.8.1'
+        classpath 'com.tiens.plugin:lib_plugin:1.0.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -51,4 +52,28 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+project('app') {Project project ->
+    println project.name
+    apply plugin: 'com.android.application'
+}
+subprojects { Project project ->
+    if(project.plugins.hasPlugin('com.android.library')) {
+
+    }
+}
+
+println getRootDir().absolutePath
+println getBuildDir().absolutePath
+println getProjectDir().absolutePath
+
+def getContent(String path) {
+    try {
+        def file = file(path)
+        return file.text
+    } catch(GradleException e) {
+        println 'file not found...'
+    }
+    return null
 }

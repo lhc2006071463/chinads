@@ -71,7 +71,7 @@ abstract class RecyclerViewBaseAdapter<T> : RecyclerView.Adapter<MyViewHolder> {
 
     }
 
-    fun setData(datas: ArrayList<T>?) {
+    fun setData(datas: MutableList<T>?) {
         this.datas = datas
         notifyDataSetChanged()
     }
@@ -113,7 +113,7 @@ abstract class RecyclerViewBaseAdapter<T> : RecyclerView.Adapter<MyViewHolder> {
         }
     }
 
-    fun handleView(holder: MyViewHolder?, position: Int, t: T?) {}
+    open fun handleView(holder: MyViewHolder, position: Int, t: T?) {}
 
     fun setOnItemClickListener(listener: OnItemClickListener<T>?) {
         this.listener = listener

@@ -62,7 +62,7 @@ dependencies {
 
     implementation "com.android.support:support-annotations:28.0.0"
     annotationProcessor 'com.android.support:support-annotations:28.0.0'
-//    api project(path:':commonAop')
+    api project(path:':commonAop')
     api "androidx.constraintlayout:constraintlayout:${ext.constraintLayout_version}"
     api "androidx.recyclerview:recyclerview:${ext.recyclerviewVersion}"
     api "com.google.android.material:material:${ext.material_version}"

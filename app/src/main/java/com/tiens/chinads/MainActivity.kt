@@ -1,5 +1,6 @@
 package com.tiens.chinads
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,6 +12,8 @@ import com.tiens.chinads.databinding.ActivityMainBinding
 import com.tiens.chinads.owner.OwnerDataProvider
 import com.tiens.comonlibrary.base.ui.BaseVMActivity
 import com.tiens.chinads.res.route.RouterPaths
+import com.tiens.comonlibrary.request.ApiException
+import com.tiens.comonlibrary.request.ExceptionUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
 @Route(path = RouterPaths.Main.MAIN_ACTIVITY)
@@ -31,6 +34,8 @@ class MainActivity : BaseVMActivity<ActivityMainBinding,MainVM>() {
         val ownerDataProvider = ARouter.getInstance().build(RouterPaths.Owner.OWNER_DATA_PROVIDER).navigation() as OwnerDataProvider
         ownerDataProvider.getOwnerData()
         addObservers()
+
+        startActivity(Intent(this,TestRefreshActivity::class.java))
     }
 
     override fun initListeners() {
@@ -45,7 +50,12 @@ class MainActivity : BaseVMActivity<ActivityMainBinding,MainVM>() {
             toast(it[0].sid)
             val appDataProvider = ARouter.getInstance().build(RouterPaths.Main.APP_DATA_PROVIDER).navigation() as AppDataProvider
             appDataProvider.content = it[0].toString()
-            ARouter.getInstance().build(RouterPaths.Owner.OWNER_ACTIVITY).navigation()
+//            ARouter.getInstance().build(RouterPaths.Owner.OWNER_ACTIVITY).navigation()
+        })
+
+        ExceptionUtil.getInstance().exceptionLiveData.observe(this, Observer {
+            if(mResumed)
+                Log.e("Tag","MainActivity 接收到错误消息")
         })
     }
 }

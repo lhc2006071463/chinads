@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.launcher.ARouter
 import com.tiens.comonlibrary.R
+import com.tiens.comonlibrary.annotation.HookClick
 import com.tiens.comonlibrary.base.BaseViewModel
 import com.tiens.comonlibrary.databinding.LayoutBaseContentBinding
 import com.tiens.comonlibrary.network.NetworkLiveData
@@ -30,12 +31,13 @@ import com.tiens.comonlibrary.util.vm.getVmClazz
  * @date: 2020-03-20 23:28
  * @description Activity 基类
  */
+@HookClick
 abstract class BaseVMActivity<VB : ViewDataBinding, VM : BaseViewModel> : FragmentActivity() {
     lateinit var mRootBinding: LayoutBaseContentBinding
     var mContext: Activity? = null
     lateinit var binding: VB
     lateinit var mVM: VM
-    var mResumed: Boolean? = false
+    var mResumed: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mContext = this
@@ -69,9 +71,21 @@ abstract class BaseVMActivity<VB : ViewDataBinding, VM : BaseViewModel> : Fragme
     }
 
     open fun setData() {
+        hookClickViews()
         initView()
         initListeners()
         initData()
+    }
+
+    private fun hookClickViews() {
+        val annotation = this.javaClass.getAnnotation(HookClick::class.java)
+        window.decorView.post {
+            if(annotation!=null) {
+                for(item in annotation.value) {
+                    HookClickUtil.hookView(findViewById(item))
+                }
+            }
+        }
     }
 
     fun setTitle(title: String?) {
