@@ -1,6 +1,4 @@
-package com.tiens.comonlibrary.annotation;
-
-import androidx.annotation.IdRes;
+package com.tiens.apt_annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -9,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface HookClick {
-    @IdRes
-    int[] value() default 0;
+public @interface Config {
+    boolean registerEventBus() default false;
+    boolean needPaddingTop() default false;
 }

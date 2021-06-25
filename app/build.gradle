@@ -73,4 +73,7 @@ dependencies {
 //    implementation "com.tiens.chinads.owner:lib_owner:1.0.0"
 
     kapt "com.alibaba:arouter-compiler:${ext.arouter_compiler_version}"
+
+    implementation project(':apt-annotation')
+    kapt project(':apt-processor')
 }

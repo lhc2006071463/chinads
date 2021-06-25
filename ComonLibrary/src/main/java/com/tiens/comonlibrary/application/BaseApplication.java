@@ -6,6 +6,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.webkit.WebView;
 
+import androidx.core.graphics.PathUtils;
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
@@ -20,6 +21,7 @@ import com.scwang.smart.refresh.layout.listener.DefaultRefreshFooterCreator;
 import com.scwang.smart.refresh.layout.listener.DefaultRefreshHeaderCreator;
 import com.tencent.mmkv.MMKV;
 //import com.tiens.chinads.commonaop.AOP;
+import com.tiens.apt_library.PathListUtil;
 import com.tiens.comonlibrary.BuildConfig;
 import com.tiens.comonlibrary.R;
 import com.tiens.comonlibrary.util.ALog;
@@ -31,7 +33,6 @@ public abstract class BaseApplication extends MultiDexApplication implements IBa
     private static final String PROCESS_NAME = "com.tiens.ChinaDs";
     private static BaseApplication baseContext;
     private AppExecutors mAppExecutors;
-
     static {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {

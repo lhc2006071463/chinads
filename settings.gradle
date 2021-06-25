@@ -3,4 +3,7 @@ include ':res'
 include ':owner'
 include ':ComonLibrary'
 include ':app'
+include ':apt-annotation'
+include ':apt-library'
+include ':apt-processor'
 rootProject.name = "ChinaDS"

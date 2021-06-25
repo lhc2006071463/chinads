@@ -70,6 +70,9 @@ dependencies {
 //    implementation "com.tiens.commonlibrary:lib_common:1.0.2"
 //    implementation "com.tiens.chinads.res:lib_res:1.0.0"
     kapt "com.alibaba:arouter-compiler:${ext.arouter_compiler_version}"
+
+    implementation project(':apt-annotation')
+    kapt project(':apt-processor')
 }
 
 def MAVEN_LOCAL_PATH = 'http://localhost:8081/repository/maven-releases/'

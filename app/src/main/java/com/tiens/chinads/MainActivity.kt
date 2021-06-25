@@ -14,6 +14,7 @@ import com.tiens.comonlibrary.base.ui.BaseVMActivity
 import com.tiens.chinads.res.route.RouterPaths
 import com.tiens.comonlibrary.request.ApiException
 import com.tiens.comonlibrary.request.ExceptionUtil
+import com.tiens.comonlibrary.util.RouteUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
 @Route(path = RouterPaths.Main.MAIN_ACTIVITY)
@@ -34,8 +35,7 @@ class MainActivity : BaseVMActivity<ActivityMainBinding,MainVM>() {
         val ownerDataProvider = ARouter.getInstance().build(RouterPaths.Owner.OWNER_DATA_PROVIDER).navigation() as OwnerDataProvider
         ownerDataProvider.getOwnerData()
         addObservers()
-
-        startActivity(Intent(this,TestRefreshActivity::class.java))
+       RouteUtil.navigation(RouterPaths.Owner.OWNER_ACTIVITY)
     }
 
     override fun initListeners() {

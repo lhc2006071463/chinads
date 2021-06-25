@@ -7,9 +7,4 @@ class MyApplication : BaseApplication() {
     override fun init() {
 
     }
-
-    override fun onCreate() {
-        super.onCreate()
-
-    }
 }

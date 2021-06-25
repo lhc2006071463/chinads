@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.tiens.apt_annotation.Login
 import com.tiens.chinads.owner.OwnerVM
 import com.tiens.chinads.owner.R
 import com.tiens.chinads.owner.databinding.OwnerActivityOwnerBinding
@@ -18,6 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@Login
 @Route(path = RouterPaths.Owner.OWNER_ACTIVITY)
 class OwnerActivity : BaseVMActivity<OwnerActivityOwnerBinding, OwnerVM>() {
     override fun getLayoutId(): Int {

@@ -1,15 +1,11 @@
-package com.tiens.comonlibrary.annotation;
-
-import androidx.annotation.IdRes;
+package com.tiens.apt_annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)
-public @interface HookClick {
-    @IdRes
-    int[] value() default 0;
+public @interface Login {
 }

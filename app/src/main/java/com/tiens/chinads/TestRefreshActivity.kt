@@ -5,12 +5,17 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.tiens.apt_annotation.Login
 import com.tiens.chinads.databinding.ActivityTestRefreshBinding
+import com.tiens.chinads.res.route.RouterPaths.Main.Companion.TEST_REFRESH_ACTIVITY
 import com.tiens.comonlibrary.base.EmptyVM
 import com.tiens.comonlibrary.base.adapter.RecyclerViewBaseAdapter
 import com.tiens.comonlibrary.base.ui.BaseVMActivity
 import com.tiens.comonlibrary.widget.recyclerview.PageRecyclerView
 
+@Login
+@Route(path = TEST_REFRESH_ACTIVITY)
 class TestRefreshActivity : BaseVMActivity<ActivityTestRefreshBinding,EmptyVM>(){
     private val list = mutableListOf<String>()
     private lateinit var adapter: RecyclerViewBaseAdapter<String>

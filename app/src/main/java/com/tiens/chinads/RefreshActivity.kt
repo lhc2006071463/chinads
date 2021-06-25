@@ -29,12 +29,6 @@ class RefreshActivity : BaseRefreshVMActivity<ActivityRefreshBinding,RefreshVM>(
     }
 
     override fun initListeners() {
-//        window.decorView.post {
-//            val curTime = System.currentTimeMillis()
-//            for(i in 0..1000)
-//                HookClickUtil.hookView(binding.tvClick)
-//            Log.e("Tag",(System.currentTimeMillis() - curTime).toString())
-//        }
         binding.tvClick.setOnClickListener{
             getData(it)
         }
