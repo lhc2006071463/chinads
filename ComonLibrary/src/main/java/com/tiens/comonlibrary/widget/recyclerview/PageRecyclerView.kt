@@ -3,17 +3,25 @@ package com.tiens.comonlibrary.widget.recyclerview
 import android.content.Context
 import android.util.AttributeSet
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
+import com.tiens.comonlibrary.application.BaseApplication
+import com.tiens.comonlibrary.request.ApiException
+import com.tiens.comonlibrary.request.HttpResult
+import com.tiens.comonlibrary.request.NetworkResponseListener
+import com.tiens.comonlibrary.request.PageResponseListener
 import com.tiens.comonlibrary.widget.CommonRefreshLayout
+import org.json.JSONObject
+import java.lang.reflect.ParameterizedType
+import java.lang.reflect.Type
 
-class PageRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr) {
-
+open class PageRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr) {
     val requestMap = mutableMapOf<Int,RequestStatus>()
     var page: Int = 1
     var pageSize: Int = 10
     private lateinit var mRefreshLayout: CommonRefreshLayout
-
     init {
         addOnScrollListener(object : RecyclerViewScrollListener() {
             override fun onScrollToBottom() {

@@ -35,13 +35,14 @@ class MainActivity : BaseVMActivity<ActivityMainBinding,MainVM>() {
         val ownerDataProvider = ARouter.getInstance().build(RouterPaths.Owner.OWNER_DATA_PROVIDER).navigation() as OwnerDataProvider
         ownerDataProvider.getOwnerData()
         addObservers()
-       RouteUtil.navigation(RouterPaths.Owner.OWNER_ACTIVITY)
+
     }
 
     override fun initListeners() {
         binding.tvClick.setOnClickListener {
             Log.d("Tag","onClick")
-            mVM.getData()
+//            mVM.getData()
+            RouteUtil.navigation(RouterPaths.Main.TEST_REFRESH_ACTIVITY)
         }
     }
 

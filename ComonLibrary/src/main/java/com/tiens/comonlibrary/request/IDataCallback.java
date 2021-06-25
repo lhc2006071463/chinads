@@ -20,7 +20,7 @@ public abstract class IDataCallback<T> implements NetworkResponseListener {
         Type type = getClassType(this);
         try {
             JSONObject jsonObject = new JSONObject(response);
-            Object data = jsonObject.opt("result"); //result
+            Object data = jsonObject.opt("data"); //result
             if (data != null) {
                 HttpResult entity = gson.fromJson(response, new TypeToken<HttpResult>() {}.getType());
                 T t = gson.fromJson(data.toString(), type);

@@ -3,22 +3,22 @@ package com.tiens.chinads
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.TextView
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.tiens.apt_annotation.Login
 import com.tiens.chinads.databinding.ActivityTestRefreshBinding
 import com.tiens.chinads.res.route.RouterPaths.Main.Companion.TEST_REFRESH_ACTIVITY
-import com.tiens.comonlibrary.base.EmptyVM
 import com.tiens.comonlibrary.base.adapter.RecyclerViewBaseAdapter
 import com.tiens.comonlibrary.base.ui.BaseVMActivity
 import com.tiens.comonlibrary.widget.recyclerview.PageRecyclerView
 
-@Login
 @Route(path = TEST_REFRESH_ACTIVITY)
-class TestRefreshActivity : BaseVMActivity<ActivityTestRefreshBinding,EmptyVM>(){
-    private val list = mutableListOf<String>()
-    private lateinit var adapter: RecyclerViewBaseAdapter<String>
+class TestRefreshActivity : BaseVMActivity<ActivityTestRefreshBinding,TestRefreshVM>(){
+    private val list = mutableListOf<ConferenceBean>()
+    private lateinit var adapter: RecyclerViewBaseAdapter<ConferenceBean>
     override fun getLayoutId(): Int {
         return R.layout.activity_test_refresh
     }
@@ -30,51 +30,57 @@ class TestRefreshActivity : BaseVMActivity<ActivityTestRefreshBinding,EmptyVM>()
     override fun initView() {
         binding.recyclerView.bindRefreshLayout(binding.refreshLayout)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = object: RecyclerViewBaseAdapter<String>(R.layout.item_refresh,mContext,list) {
-            override fun handleView(holder: MyViewHolder, position: Int, t: String?) {
+        binding.recyclerView.adapter = object: RecyclerViewBaseAdapter<ConferenceBean>(R.layout.item_refresh,mContext,list) {
+            override fun handleView(holder: MyViewHolder, position: Int, t: ConferenceBean?) {
                 super.handleView(holder, position, t)
-                holder.itemView.findViewById<TextView>(R.id.tv_text).text = t
+                holder.itemView.findViewById<TextView>(R.id.tv_text).text = t?.coName
             }
         }.apply { adapter = this }
     }
 
+
     override fun initData() {
-        for(i in 0..10) {
-            list.add("position $i")
-        }
-        binding.recyclerView.page++
+        getData()
+    }
+
+    private fun getData() {
+        mVM.getData(binding.recyclerView.page)
     }
 
     override fun initListeners() {
+        mVM.successData.observe(this, Observer{
+            Log.d("Tag","$binding.recyclerView.page====")
+            if(binding.recyclerView.page==1) {
+                list.clear()
+                list.addAll(it.items)
+                adapter.setData(list)
+            }else {
+                adapter.addDatas(it.items)
+            }
+            binding.recyclerView.setSuccessStatus()
+            finishRefreshOrLoadMore()
+        })
+
+        mVM.pageErrorData.observe(this, Observer {
+            binding.recyclerView.setFailStatus()
+            finishRefreshOrLoadMore()
+        })
+
         binding.recyclerView.mOnScrollListener = object : PageRecyclerView.OnScrollListener {
 
             override fun refresh() {
-                list.clear()
-                for(i in 0..10) {
-                    list.add("position $i")
-                }
-                binding.recyclerView.setSuccessStatus()
-                adapter.setData(list)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.refreshLayout.finishRefresh()
-                },1000)
+                getData()
             }
 
             override fun loadMore() {
-                Handler(Looper.getMainLooper()).postDelayed({
-                    val subList = mutableListOf<String>()
-                    for(i in list.size..list.size+10) {
-                        subList.add("position $i")
-                    }
-                    binding.recyclerView.setSuccessStatus()
-                    adapter.addDatas(subList)
-                },500)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    if(binding.refreshLayout.isLoading)
-                        binding.refreshLayout.finishLoadMore()
-                },200)
+                getData()
             }
 
         }
+    }
+
+    private fun finishRefreshOrLoadMore() {
+        binding.refreshLayout.finishRefresh()
+        binding.refreshLayout.finishLoadMore()
     }
 }

@@ -7,7 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tiens.comonlibrary.cache.CacheControlManager
 import com.tiens.comonlibrary.request.*
+import com.tiens.comonlibrary.util.GsonUtil
 import kotlinx.coroutines.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Response
 abstract class BaseViewModel : ViewModel() {
@@ -96,6 +99,11 @@ abstract class BaseViewModel : ViewModel() {
 
     fun get(url: String, params: Map<String,Any>, loading: Boolean, listener: NetworkResponseListener) {
         request({httpUtil.create().get(url,params)}, loading, listener)
+    }
+
+    fun post(url: String, params: Map<String,Any>, loading: Boolean, listener: NetworkResponseListener) {
+        val body: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), GsonUtil.bean2json(params))
+        request({httpUtil.create().postJson(url,body)}, loading, listener)
     }
 
     private fun getCacheData(url: String, params: Map<String,Any>): Response<ResponseBody> {
