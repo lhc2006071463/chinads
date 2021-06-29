@@ -47,8 +47,8 @@ abstract class RecyclerViewBaseAdapter<T> : RecyclerView.Adapter<MyViewHolder> {
             setVariable(variable, datas?.get(position))
             executePendingBindings()
             root.setOnClickListener {
-                itemClick(holder, position, datas!![position])
-                listener?.onItemClick(holder, position, datas!![position])
+                datas?.get(position)?.let { it1 -> itemClick(holder, position, it1) }
+                listener?.onItemClick(holder, position, datas?.get(position))
             }
             handleView(holder, position, datas?.get(position))
         }
@@ -56,7 +56,7 @@ abstract class RecyclerViewBaseAdapter<T> : RecyclerView.Adapter<MyViewHolder> {
     }
 
     override fun getItemCount(): Int {
-        return if (datas == null) 0 else datas?.size?:0
+        return datas?.size?:0
     }
 
     override fun getItemId(position: Int): Long {

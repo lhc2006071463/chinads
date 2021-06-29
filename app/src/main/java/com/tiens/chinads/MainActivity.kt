@@ -1,6 +1,7 @@
 package com.tiens.chinads
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,11 +13,16 @@ import com.tiens.chinads.databinding.ActivityMainBinding
 import com.tiens.chinads.owner.OwnerDataProvider
 import com.tiens.comonlibrary.base.ui.BaseVMActivity
 import com.tiens.chinads.res.route.RouterPaths
+import com.tiens.comonlibrary.annotation.HookClick
 import com.tiens.comonlibrary.request.ApiException
 import com.tiens.comonlibrary.request.ExceptionUtil
 import com.tiens.comonlibrary.util.RouteUtil
+import com.tiens.comonlibrary.util.UIUtil
+import com.tiens.comonlibrary.util.dp
+import com.tiens.comonlibrary.util.generateStrokeDrawable
 import kotlinx.android.synthetic.main.activity_main.*
 
+@HookClick(R.id.tv_click)
 @Route(path = RouterPaths.Main.MAIN_ACTIVITY)
 class MainActivity : BaseVMActivity<ActivityMainBinding,MainVM>() {
     override fun getLayoutId(): Int {
@@ -24,10 +30,11 @@ class MainActivity : BaseVMActivity<ActivityMainBinding,MainVM>() {
     }
 
     override fun initTitleBar(savedInstanceState: Bundle?) {
-
+        mRootBinding.titleBar.setTitle("Main Activity")
     }
 
     override fun initView() {
+        binding.tvClick.background = generateStrokeDrawable(1.dp.toInt(), Color.parseColor("#ff0000"),5.dp.toInt())
         supportFragmentManager.beginTransaction().add(R.id.fl_container,TestFragment(),"TestFragment").commitAllowingStateLoss()
     }
 
@@ -42,7 +49,7 @@ class MainActivity : BaseVMActivity<ActivityMainBinding,MainVM>() {
         binding.tvClick.setOnClickListener {
             Log.d("Tag","onClick")
 //            mVM.getData()
-            RouteUtil.navigation(RouterPaths.Main.TEST_REFRESH_ACTIVITY)
+            RouteUtil.navigation(RouterPaths.Main.TEST_REFRESH2_ACTIVITY)
         }
     }
 

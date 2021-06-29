@@ -12,24 +12,31 @@ import com.tiens.comonlibrary.request.ApiException
 import com.tiens.comonlibrary.request.HttpResult
 import com.tiens.comonlibrary.request.NetworkResponseListener
 import com.tiens.comonlibrary.request.PageResponseListener
+import com.tiens.comonlibrary.util.RefreshUtils
 import com.tiens.comonlibrary.widget.CommonRefreshLayout
 import org.json.JSONObject
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
-open class PageRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr) {
+class PageRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr) {
     val requestMap = mutableMapOf<Int,RequestStatus>()
     var page: Int = 1
     var pageSize: Int = 10
+    var hasMoreData = true
+        set(value) {
+            field = value
+            if(this::mRefreshLayout.isInitialized) {
+                RefreshUtils.setRefreshFooter(hasMoreData,context,mRefreshLayout)
+            }
+        }
     private lateinit var mRefreshLayout: CommonRefreshLayout
     init {
         addOnScrollListener(object : RecyclerViewScrollListener() {
             override fun onScrollToBottom() {
                 super.onScrollToBottom()
-                if(mRefreshLayout.hasMoreData) {
+                if(hasMoreData) {
                     if(!requestMap.containsKey(page)) {
                         requestMap[page] = RequestStatus.LOADING
-                        requestMap[page-1] = RequestStatus.SUCCESS
                         mOnScrollListener?.loadMore()
                     }
                 }
@@ -43,7 +50,6 @@ open class PageRecyclerView @JvmOverloads constructor(context: Context, attrs: A
             override fun onLoadMore(refreshLayout: RefreshLayout) {
                 if(!requestMap.containsKey(page)) {
                     requestMap[page] = RequestStatus.LOADING
-                    requestMap[page-1] = RequestStatus.SUCCESS
                     mOnScrollListener?.loadMore()
                 } else if(requestMap[page]==RequestStatus.FAIL){
                     requestMap[page] = RequestStatus.LOADING
@@ -62,14 +68,22 @@ open class PageRecyclerView @JvmOverloads constructor(context: Context, attrs: A
     }
 
     fun setSuccessStatus() {
+        finishRefreshOrLoadMore()
         requestMap[page] = RequestStatus.SUCCESS
         this.page++
     }
 
     fun setFailStatus() {
+        finishRefreshOrLoadMore()
         requestMap[page] = RequestStatus.FAIL
     }
 
+    private fun finishRefreshOrLoadMore() {
+        if(mRefreshLayout.isRefreshing)
+            mRefreshLayout.finishRefresh()
+        else
+            mRefreshLayout.finishLoadMore()
+    }
 
     var mOnScrollListener: OnScrollListener? = null
 

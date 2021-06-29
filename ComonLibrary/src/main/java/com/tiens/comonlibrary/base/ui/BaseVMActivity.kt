@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.launcher.ARouter
 import com.tiens.comonlibrary.R
 import com.tiens.comonlibrary.annotation.HookClick
+import com.tiens.comonlibrary.annotation.PageConfig
 import com.tiens.comonlibrary.base.BaseViewModel
 import com.tiens.comonlibrary.databinding.LayoutBaseContentBinding
 import com.tiens.comonlibrary.network.NetworkLiveData
@@ -38,12 +39,16 @@ abstract class BaseVMActivity<VB : ViewDataBinding, VM : BaseViewModel> : Fragme
     lateinit var binding: VB
     lateinit var mVM: VM
     var mResumed: Boolean = false
+    private var needPaddingTop: Boolean = true
+    private var transparencyBar: Boolean = true
+    private var isFullScreen: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mContext = this
         initBeforeSetContent()
         mRootBinding = DataBindingUtil.setContentView(this, R.layout.layout_base_content)
         binding = DataBindingUtil.inflate(LayoutInflater.from(this), getLayoutId(), null, false)
+        getPageConfig()
         addContentView()
         ARouter.getInstance().inject(this)
         initVM()
@@ -58,7 +63,7 @@ abstract class BaseVMActivity<VB : ViewDataBinding, VM : BaseViewModel> : Fragme
     }
 
     private fun addContentView() {
-        if (needSetPaddingTop()) {
+        if (needPaddingTop) {
             setPaddingTop()
         }
         mRootBinding.rlRoot.addView(binding.root, 1)
@@ -77,6 +82,15 @@ abstract class BaseVMActivity<VB : ViewDataBinding, VM : BaseViewModel> : Fragme
         initData()
     }
 
+    private fun getPageConfig() {
+        val annotation = this.javaClass.getAnnotation(PageConfig::class.java)
+        annotation?.let {
+            needPaddingTop = annotation.needPaddingTop
+            transparencyBar = annotation.transparencyBar
+            isFullScreen = annotation.isFullScreen
+        }
+    }
+
     private fun hookClickViews() {
         val annotation = this.javaClass.getAnnotation(HookClick::class.java)
         window.decorView.post {
@@ -93,14 +107,14 @@ abstract class BaseVMActivity<VB : ViewDataBinding, VM : BaseViewModel> : Fragme
     }
 
     private fun initBeforeSetContent() {
-        if (isFullScreen()) {
+        if (isFullScreen) {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             window.setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
-        if (transparencyBar()) {
+        if (transparencyBar) {
             StatusBarUtil.transparencyBar(mContext)
             StatusBarUtil.setLightStatusBar(mContext, true)
         }
@@ -179,18 +193,6 @@ abstract class BaseVMActivity<VB : ViewDataBinding, VM : BaseViewModel> : Fragme
     override fun onDestroy() {
         super.onDestroy()
         mRootBinding.ivProgress.visibility = View.GONE
-    }
-
-    open fun needSetPaddingTop(): Boolean {
-        return true
-    }
-
-    open fun transparencyBar(): Boolean {
-        return true
-    }
-
-    open fun isFullScreen(): Boolean {
-        return false
     }
 
     fun toast(message: String?) {

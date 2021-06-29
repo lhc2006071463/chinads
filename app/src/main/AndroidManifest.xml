@@ -43,6 +43,7 @@
 
         </activity>
         <activity android:name=".TestRefreshActivity" />
+        <activity android:name=".TestRefresh2Activity" />
     </application>
 
 </manifest>

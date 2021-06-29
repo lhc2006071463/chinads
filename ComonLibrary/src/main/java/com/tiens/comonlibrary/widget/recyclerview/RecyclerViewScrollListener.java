@@ -38,7 +38,8 @@ public class RecyclerViewScrollListener extends RecyclerView.OnScrollListener {
         Log.d("Tag",totalItemCount+"======"+lastCompletelyVisibleItemPosition);
         if (visibleItemCount > 0
                 && totalItemCount>=((PageRecyclerView) recyclerView).getPageSize()
-                && lastCompletelyVisibleItemPosition == totalItemCount - ((PageRecyclerView) recyclerView).getPageSize()/3) {
+                && lastCompletelyVisibleItemPosition == totalItemCount - ((PageRecyclerView) recyclerView).getPageSize()/3
+                && (lastCompletelyVisibleItemPosition/((PageRecyclerView) recyclerView).getPageSize())+2==((PageRecyclerView) recyclerView).getPage()) {
             onScrollToBottom();
             Log.e("Tag", "scrollToBottom-----");
         }

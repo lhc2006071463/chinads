@@ -13,6 +13,7 @@ interface RouterPaths {
         companion object {
             const val MAIN_ACTIVITY = "/Main/MainActivity"
             const val TEST_REFRESH_ACTIVITY = "/Main/TestRefreshActivity"
+            const val TEST_REFRESH2_ACTIVITY = "/Main/TestRefresh2Activity"
             const val APP_DATA_PROVIDER = "/Main/AppDataProvider"
         }
     }

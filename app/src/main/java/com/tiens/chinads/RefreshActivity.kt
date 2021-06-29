@@ -55,10 +55,6 @@ class RefreshActivity : BaseRefreshVMActivity<ActivityRefreshBinding,RefreshVM>(
         ALog.d("挂起函数外执行...")
     }
 
-    override fun initRefreshLayout() {
-        mRefreshLayout = binding.refreshLayout
-    }
-
     override fun initData() {
         val content = "失效商品,\n失效商品1\n失效商品2"
         val result = content.replace("\n", System.getProperty("line.separator"))

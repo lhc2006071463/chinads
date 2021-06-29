@@ -52,6 +52,7 @@ abstract class BaseViewModel : ViewModel() {
             } finally {//请求结束
                 if(isShowLoading)
                     dismissLoading()
+                requestFinish()
             }
         }
     }
@@ -84,7 +85,8 @@ abstract class BaseViewModel : ViewModel() {
             } catch (e: Throwable) {//接口请求失败
                 showError(ApiException(ApiException.API_ERROR,e.message))
             } finally {//请求结束
-                dismissLoading()
+                if(isShowLoading)
+                    dismissLoading()
                 requestFinish()
             }
         }
