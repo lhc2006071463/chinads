@@ -23,8 +23,8 @@ class TestFragment : BaseVMFragment<FragmentTestBinding,EmptyVM>() {
     }
 
     override fun initData() {
-        ExceptionUtil.getInstance().exceptionLiveData.observe(this, Observer {
-            Log.e("Tag","TestFragment 接收到错误消息")
-        })
+//        ExceptionUtil.getInstance().exceptionLiveData.observe(this, Observer {
+//            Log.e("Tag","TestFragment 接收到错误消息")
+//        })
     }
 }

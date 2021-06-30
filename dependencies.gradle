@@ -54,4 +54,6 @@ ext {
 
     viewmodel_ktx_version = '2.3.1'
     livedata_ktx_version = '2.3.1'
+
+    room_version = '2.3.0'
 }

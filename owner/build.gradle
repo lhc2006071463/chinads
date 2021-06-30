@@ -73,6 +73,7 @@ dependencies {
 
     implementation project(':apt-annotation')
     kapt project(':apt-processor')
+    kapt("androidx.room:room-compiler:$room_version")
 }
 
 def MAVEN_LOCAL_PATH = 'http://localhost:8081/repository/maven-releases/'

@@ -84,6 +84,7 @@ dependencies {
     api  'com.scwang.smart:refresh-header-classics:2.0.3'
     api 'com.android.support:multidex:1.0.3'
     api project(':apt-library')
+    api("androidx.room:room-runtime:$room_version")
 }
 
 def MAVEN_LOCAL_PATH = 'http://localhost:8081/repository/maven-releases/'

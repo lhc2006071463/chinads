@@ -49,7 +49,7 @@ class MainActivity : BaseVMActivity<ActivityMainBinding,MainVM>() {
         binding.tvClick.setOnClickListener {
             Log.d("Tag","onClick")
 //            mVM.getData()
-            RouteUtil.navigation(RouterPaths.Main.TEST_REFRESH2_ACTIVITY)
+            RouteUtil.navigation(RouterPaths.Owner.OWNER_ACTIVITY)
         }
     }
 
